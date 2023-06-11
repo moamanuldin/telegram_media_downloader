@@ -3,7 +3,7 @@ import asyncio
 import logging
 import os
 from typing import List, Optional, Tuple, Union
-
+import re
 import pyrogram
 import yaml
 from pyrogram.types import Audio, Document, Photo, Video, VideoNote, Voice
@@ -122,7 +122,7 @@ async def _get_media_meta(
             _type,
             "{}_{}.{}".format(
                 _type,
-                media_obj.date.isoformat(),  # type: ignore
+                re.sub(r'[\/:*?"<>|]', '_', str(media_obj.date.isoformat())),  # type: ignore
                 file_format,
             ),
         )
